@@ -1,16 +1,16 @@
 #include <bits/stdc++.h>
 
 //Sudoku's numbers represented as colors.
-#define NO_COLOR 13
-#define RED 1
-#define YELLOW 2
-#define BLUE 3
-#define CYAN 4
-#define PINK 5
-#define GRAY 6
-#define GREEN 7
-#define WHITE 8
-#define BLACK 9
+#define NO_COLOR 29
+#define RED 2
+#define YELLOW 3
+#define BLUE 5
+#define CYAN 7
+#define PINK 11
+#define GRAY 13
+#define GREEN 17
+#define WHITE 19
+#define BLACK 23
 
 using namespace std;
 
@@ -28,7 +28,7 @@ class Graph{
     }
 
     //Adjacency List representation since the graph isn't sparse.
-    //It has 50% of the edges compared to a full graph.
+    //It has 30% of the edges compared to a full graph.
     void addEdge(int u, int v){
         adj[u].push_back(v);
         adj[v].push_back(u);
