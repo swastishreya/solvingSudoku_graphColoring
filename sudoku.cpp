@@ -17,6 +17,7 @@ using namespace std;
 class Graph{
     int n;
     list <int> *adj;
+    vector <int> subgrid, subgridIter;
     vector <pair<int,int>> color;
     public:
     Graph(int vertices){
@@ -25,6 +26,26 @@ class Graph{
         for(int i = 0; i < 81; i++){
             color.push_back(make_pair(NO_COLOR,false));
         }
+        subgrid.push_back(0);
+        subgrid.push_back(1);
+        subgrid.push_back(2);
+        subgrid.push_back(11);
+        subgrid.push_back(20);
+        subgrid.push_back(19);
+        subgrid.push_back(18);
+        subgrid.push_back(9);
+        subgrid.push_back(10);
+
+        subgridIter.push_back(0);
+        subgridIter.push_back(3);
+        subgridIter.push_back(6);
+        subgridIter.push_back(27);
+        subgridIter.push_back(30);
+        subgridIter.push_back(33);
+        subgridIter.push_back(54);
+        subgridIter.push_back(57);
+        subgridIter.push_back(60);
+
     }
 
     //Adjacency List representation since the graph isn't sparse.
@@ -38,84 +59,83 @@ class Graph{
 
     void colorGraph(){
         list <int>::iterator v;
-        for(int u = 0; u < 81; u++){
-            int impossibleColor, possibleColor;
-            //cout << "color["<< u+1 <<"].second = " << color[u].second << endl;
-            if(color[u].second == false){
-                if(color[u].first == NO_COLOR)
-                    impossibleColor = NO_COLOR;
-                else
-                    impossibleColor = color[u].first;
+        vector <int>::iterator i, j;
+        for(i = subgridIter.begin(); i < subgridIter.end(); i++){   
+            for(j = subgrid.begin(); j < subgrid.end(); j++){
+                int u = *i + *j;
+                int impossibleColor, possibleColor;
+                //cout << "color["<< u+1 <<"].second = " << color[u].second << endl;
+                if(color[u].second == false){
+                    if(color[u].first == NO_COLOR)
+                        impossibleColor = NO_COLOR;
+                    else
+                        impossibleColor = color[u].first;
 
-                possibleColor = NO_COLOR;
-                // for(v = adj[u].begin(); v != adj[u].end(); v++){
-                //     //cout << *v << " adj node color " << color[*v].first << endl;
-                //     if(color[*v].first != NO_COLOR){
-                //         if(impossibleColor == NO_COLOR)
-                //             impossibleColor = color[*v].first;
-                //         else 
-                //             impossibleColor = impossibleColor*color[*v].first;
-                //     }
-                // }
+                    possibleColor = NO_COLOR;
 
-                if(impossibleColor%RED != 0){
-                    possibleColor = RED;
-                    color[u].first = RED;
-                    color[u].second = true;
-                }
-                else if(impossibleColor%YELLOW != 0){
-                    possibleColor = YELLOW;
-                    color[u].first = YELLOW;
-                    color[u].second = true;
-                }
-                else if(impossibleColor%BLUE != 0){
-                    possibleColor = BLUE;
-                    color[u].first = BLUE;
-                    color[u].second = true;
-                }
-                else if(impossibleColor%CYAN != 0){
-                    possibleColor = CYAN;
-                    color[u].first = CYAN;
-                    color[u].second = true;
-                }
-                else if(impossibleColor%PINK != 0){
-                    possibleColor = PINK;
-                    color[u].first = PINK;
-                    color[u].second = true;
-                }
-                else if(impossibleColor%GRAY != 0){
-                    possibleColor = GRAY;
-                    color[u].first = GRAY;
-                    color[u].second = true;
-                }
-                else if(impossibleColor%GREEN != 0){
-                    possibleColor = GREEN;
-                    color[u].first = GREEN;
-                    color[u].second = true;
-                }
-                else if(impossibleColor%WHITE != 0){
-                    possibleColor = WHITE;
-                    color[u].first = WHITE;
-                    color[u].second = true;
-                }
-                else if(impossibleColor%BLACK != 0){
-                    possibleColor = BLACK;
-                    color[u].first = BLACK;
-                    color[u].second = true;
-                }
+                    if(impossibleColor%RED != 0){
+                        possibleColor = RED;
+                        color[u].first = RED;
+                        color[u].second = true;
+                    }
+                    else if(impossibleColor%YELLOW != 0){
+                        possibleColor = YELLOW;
+                        color[u].first = YELLOW;
+                        color[u].second = true;
+                    }
+                    else if(impossibleColor%BLUE != 0){
+                        possibleColor = BLUE;
+                        color[u].first = BLUE;
+                        color[u].second = true;
+                    }
+                    else if(impossibleColor%CYAN != 0){
+                        possibleColor = CYAN;
+                        color[u].first = CYAN;
+                        color[u].second = true;
+                    }
+                    else if(impossibleColor%PINK != 0){
+                        possibleColor = PINK;
+                        color[u].first = PINK;
+                        color[u].second = true;
+                    }
+                    else if(impossibleColor%GRAY != 0){
+                        possibleColor = GRAY;
+                        color[u].first = GRAY;
+                        color[u].second = true;
+                    }
+                    else if(impossibleColor%GREEN != 0){
+                        possibleColor = GREEN;
+                        color[u].first = GREEN;
+                        color[u].second = true;
+                    }
+                    else if(impossibleColor%WHITE != 0){
+                        possibleColor = WHITE;
+                        color[u].first = WHITE;
+                        color[u].second = true;
+                    }
+                    else if(impossibleColor%BLACK != 0){
+                        possibleColor = BLACK;
+                        color[u].first = BLACK;
+                        color[u].second = true;
+                    }
 
-                for(v = adj[u].begin(); v != adj[u].end(); v++){
-                    if(color[*v].second == false){
-                        if(color[*v].first != NO_COLOR)
-                            color[*v].first = color[*v].first*possibleColor;
-                        else
-                            color[*v].first = possibleColor;
+                    for(v = adj[u].begin(); v != adj[u].end(); v++){
+                        if(color[*v].second == false){
+                            if(color[*v].first != NO_COLOR)
+                                color[*v].first = color[*v].first*possibleColor;
+                            else
+                                color[*v].first = possibleColor;
+                        }
                     }
                 }
+                // for(int u = 0; u < 81; u++){
+                //     cout << "(" << u << "," << color[u].first << "," << color[u].second << ")" << " ";
+                // }
+                // cout << " " << endl;
             }
-        }
-        for(int u = 0; u < 81; u++){
-            cout << "Color of " << u+1 << " = " << color[u].first << " It is " << color[u].second << endl;
+            for(int u = 0; u < 81; u++){
+                cout << "Color of " << u+1 << " = " << color[u].first << " It is " << color[u].second << endl;
+            }
         }
     }
 
@@ -202,8 +222,6 @@ int main(){
         }
     }
     //g.printAdjList();
-    g.colorGraph();
-    g.colorGraph();
     g.colorGraph();
 
 }
