@@ -30,17 +30,24 @@ class Graph{
     //Adjacency List representation since the graph isn't sparse.
     //It has 30% of the edges compared to a full graph.
     void addEdge(int u, int v){
-        adj[u].push_back(v);
-        adj[v].push_back(u);
+        if(find(adj[u].begin(),adj[u].end(),v) == adj[u].end())
+            adj[u].push_back(v);
+        if(find(adj[v].begin(),adj[v].end(),u) == adj[v].end())
+            adj[v].push_back(u);
     }
 
     void colorGraph(){
         list <int>::iterator v;
         for(int u = 0; u < 81; u++){
+            int impossibleColor, possibleColor;
             //cout << "color["<< u+1 <<"].second = " << color[u].second << endl;
             if(color[u].second == false){
-                int impossibleColor = NO_COLOR;
-                int possibleColor = NO_COLOR;
+                if(color[u].first == NO_COLOR)
+                    impossibleColor = NO_COLOR;
+                else
+                    impossibleColor = color[u].first;
+
+                possibleColor = NO_COLOR;
                 for(v = adj[u].begin(); v != adj[u].end(); v++){
                     //cout << *v << " adj node color " << color[*v].first << endl;
                     if(color[*v].first != NO_COLOR){
@@ -109,6 +116,16 @@ class Graph{
         }
         for(int u = 0; u < 81; u++){
             cout << "Color of " << u+1 << " = " << color[u].first << " It is " << color[u].second << endl;
+        }
+    }
+
+    void printAdjList(){
+        list <int>::iterator i;
+        for(int a = 0; a < 81; a++) {
+            for(i = adj[a].begin(); i != adj[a].end(); ++i) {
+                cout << *i << ' ';
+            }
+        cout << endl;
         }
     }
 
@@ -184,7 +201,7 @@ int main(){
                 g.addEdge(u,v);
         }
     }
-
+    //g.printAdjList();
     g.colorGraph();
 
 }
