@@ -48,15 +48,15 @@ class Graph{
                     impossibleColor = color[u].first;
 
                 possibleColor = NO_COLOR;
-                for(v = adj[u].begin(); v != adj[u].end(); v++){
-                    //cout << *v << " adj node color " << color[*v].first << endl;
-                    if(color[*v].first != NO_COLOR){
-                        if(impossibleColor == NO_COLOR)
-                            impossibleColor = color[*v].first;
-                        else 
-                            impossibleColor = impossibleColor*color[*v].first;
-                    }
-                }
+                // for(v = adj[u].begin(); v != adj[u].end(); v++){
+                //     //cout << *v << " adj node color " << color[*v].first << endl;
+                //     if(color[*v].first != NO_COLOR){
+                //         if(impossibleColor == NO_COLOR)
+                //             impossibleColor = color[*v].first;
+                //         else 
+                //             impossibleColor = impossibleColor*color[*v].first;
+                //     }
+                // }
 
                 if(impossibleColor%RED != 0){
                     possibleColor = RED;
@@ -202,6 +202,8 @@ int main(){
         }
     }
     //g.printAdjList();
+    g.colorGraph();
+    g.colorGraph();
     g.colorGraph();
 
 }
